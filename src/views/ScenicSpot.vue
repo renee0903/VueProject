@@ -12,7 +12,7 @@
           <img :src = "item.Picture.PictureUrl1" :alt = "item.Picture.PictureUrl1"/>
         </span>
         <div>
-          <!-- Tag 如果無資料則不顯示 -->
+          <!-- Tag 使用v-show 如果無資料則不顯示 -->
           <p v-show="item.Class1 !== undefined" class="tag" >{{item.Class1}}</p>
           <p v-show="item.Level !== undefined" class="tag" >{{item.Level}}</p>
         </div>
@@ -35,18 +35,19 @@
   <script setup>
   import { ref, onMounted, reactive, computed, watch} from 'vue'
   import { useStore } from 'vuex'
-  import { useRoute } from 'vue-router';
+  import { useRoute } from 'vue-router'
 
   const store = useStore()
+  const route = useRoute()
 
-onMounted(() => {
-//於畫面渲染時取得api資料
-store.dispatch('getData',{
-  skip: currentPage.value-1, //從第1筆開始
-  city: route.name //縣市api
-});
-console.log(store.state.data);
-});
+  onMounted(() => {
+  //於畫面渲染時取得api資料
+  store.dispatch('getData',{
+    skip: currentPage.value-1, //index
+    city: route.name //縣市api
+  });
+  console.log(store.state.data);
+  });
 
 //-----------監聽儲存庫(store)內資料變化--------
 let source = computed(()=>store.state.data);
@@ -54,10 +55,8 @@ let total = computed(()=>store.state.data.total);
 //--------------------------------------------
 
 // 縣市變數 吃route.name
-const route = useRoute();
 let activeCity = ref(route.name);
 console.log('route.name :' + route.name);
-
 
 // 設定api中的縣市(中英文)
 const cityArr = reactive(
@@ -94,28 +93,29 @@ const cityArr = reactive(
 let perPage = ref(1);
 //目前頁數
 let currentPage = ref(1);
+
+
 //監聽目前頁數若換頁重新取得api資料
-watch(currentPage, (nv, pv) => {
+watch(currentPage, (nv, pv) => {//nv:後值，pv:前值
   store.dispatch('getData', { 
     skip: nv - 1,
     city: cityArr[activeCity.value].eng});
 })
 //監聽目前縣市若換頁重新取得api資料
-watch(activeCity, (nv, pv) => { //nv:後值，pv:前值
+watch(activeCity, (nv, pv) => { 
   store.dispatch('getData', { 
     skip: currentPage.value - 1,
     city: cityArr[nv].eng});
 })
-
-//nav
+//監聽若navbar切換要重新取的api資料，並對activeCity重新賦值
 watch(route, (nv,pv) =>{
-
   store.dispatch('getData',{
   skip: currentPage.value-1,
   city: nv.name //縣市api
   });
-  //reload activeCity.value
+  //reload activeCity currentPage
   activeCity.value = nv.name;
+  currentPage.value = 0;
 })
 
   </script>

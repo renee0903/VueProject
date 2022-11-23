@@ -72,7 +72,6 @@
     </article>
   </section>
   <br/><br/>
-  <footerLayout />
 </template>
 
 <script>

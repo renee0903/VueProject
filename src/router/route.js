@@ -1,12 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import home from '@/views/home.vue';
-// import taipei from '@/views/taipei.vue';
-import newtaipei from '@/views/newtaipei.vue';
-import taoyuan from '@/views/taoyuan.vue';
-import taichung from '@/views/taichung.vue';
-import tainan from '@/views/tainan.vue';
-import kaohsiung from '@/views/kaohsiung.vue';
-import ScenicSpot from '@/components/ScenicSpot.vue';
+import ScenicSpot from '@/views/ScenicSpot.vue';
 
 export const router = createRouter({
   history: createWebHistory(),

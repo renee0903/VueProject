@@ -3,17 +3,21 @@
   <navbar />
 
   <router-view></router-view>
+
+  <footerLayout />
 </template>
 
 <script>
 import headerLayout from '@/components/header-layout.vue';
 import navbar from '@/components/navbar.vue';
+import footerLayout from '@/components/footer-layout.vue';
 
 export default {
   name: 'App',
   components: {
     headerLayout,
-    navbar
+    navbar,
+    footerLayout
   }
 }
 </script>

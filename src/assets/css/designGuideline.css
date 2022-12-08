@@ -203,6 +203,57 @@ footer p {
   text-align: left;
 }
 
+/*scenicSpot*/
+.scenicSpot {
+  text-align: center;
+}
+
+.pictures {
+  display: flex;
+  margin: 0.5em 0em 2em 0em;
+}
+
+.pictures img {
+  width: 80em;
+  height: 30em;
+  object-fit: cover;
+}
+
+.tag {
+  display: flex;
+  margin-top: -20px;
+}
+
+.tagClass {
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  background: #f2849e;
+  color: white;
+  padding: 6px 20px;
+  margin-left: 120px;
+  height: 40px;
+}
+
+.tagLevel {
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  background: #ae85ca;
+  color: white;
+  padding: 6px 20px;
+  margin-left: 15px;
+  height: 40px;
+}
+
+.scenicSpotDesc {
+  float: flex;
+  font-weight: bold;
+  text-align: left;
+  padding: 0px 120px;
+  margin-bottom: 40px;
+}
+
 /*Content*/
 .contentContainer {
   clear: both;
@@ -229,9 +280,17 @@ footer p {
   background: rgba(74, 74, 74, 0.1);
   height: 60px;
   /* line-height: 45px; */
-  padding-left: 20px;
+  padding-left: 15px;
   margin-bottom: 30px;
   /* box-shadow: 0 3px 12px rgb(0 0 0 / 10%); */
+}
+
+.navbarList {
+  text-align: left; /* float: left; */
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 60px;
+  margin-bottom: -15px;
 }
 
 .menu__container {

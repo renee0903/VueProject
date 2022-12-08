@@ -75,11 +75,7 @@
 </template>
 
 <script>
-import footerLayout from '@/components/footer-layout.vue';
-
 export default {
-  components: {
-    footerLayout
-  }
+
 }
 </script>

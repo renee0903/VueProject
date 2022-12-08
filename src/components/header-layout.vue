@@ -4,7 +4,7 @@
       <img src="../assets/images/esunLogo.png" alt="" />
     </div>
     <div class="titleContainer">
-      <b>E.SUN ｜ Vue.js Project</b>
+      <b>E.SUN ｜ 臺灣觀光景點查詢</b>
     </div>
   </header>
 </template>

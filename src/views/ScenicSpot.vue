@@ -1,26 +1,27 @@
 <template>
-    <div class="header">
-      <h1>{{cityArr[activeCity].zh_tw}}觀光景點</h1>
+    <div class="navbarList">
+        <p><router-link :to="{ name: 'home'}">首頁</router-link> / {{cityArr[activeCity].zh_tw}}</p>
     </div>
     <div class="scenicSpot"    
         v-for="(item) in source"
         :key="item.ScenicSpotID">
   
         <h1>{{item.ScenicSpotName}}</h1>
-        <span class="pictures">
+        <div class="pictures">
           <!-- 使用v-bind 對img動態賦值 -->
           <img :src = "item.Picture.PictureUrl1" :alt = "item.Picture.PictureUrl1"/>
-        </span>
-        <div>
-          <!-- Tag 使用v-show 如果無資料則不顯示 -->
-          <p v-show="item.Class1 !== undefined" class="tag" >{{item.Class1}}</p>
-          <p v-show="item.Level !== undefined" class="tag" >{{item.Level}}</p>
         </div>
-        <p>{{item.DescriptionDetail}}</p>
-        <p>聯絡資訊：{{item.Phone}}</p>
-  
+        <div class="tag">
+          <!-- Tag 使用v-show 如果無資料則不顯示 -->
+          <p v-show="item.Class1 !== undefined" class="tagClass" >{{item.Class1}}</p>
+          <p v-show="item.Level !== undefined" class="tagLevel" >{{item.Level}}</p>
+        </div>
+        <div class="scenicSpotDesc">
+          <p>{{item.DescriptionDetail}}</p>
+          <p>聯絡資訊：{{item.Phone}}</p>
+        </div>
     </div>
-  
+
     <div >
       <b-pagination class="pagination" align = "center"
           v-model="currentPage"
@@ -30,9 +31,9 @@
           first-number
       ></b-pagination>
     </div>
-  </template>
+</template>
   
-  <script setup>
+<script setup>
   import { ref, onMounted, reactive, computed, watch} from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
@@ -55,14 +56,14 @@ let total = computed(()=>store.state.data.total);
 //--------------------------------------------
 
 // 縣市變數 吃route.name
-let activeCity = ref(route.name);
+const activeCity = ref(route.name);
 console.log('route.name :' + route.name);
 
 // 設定api中的縣市(中英文)
 const cityArr = reactive(
   {
     Taipei: {
-      zh_tw: "台北市",
+      zh_tw: "臺北市",
       eng:'Taipei'
     },
     NewTaipei: {
@@ -74,11 +75,11 @@ const cityArr = reactive(
       eng:'Taoyuan'
     },
     Taichung: {
-      zh_tw: "台中市",
+      zh_tw: "臺中市",
       eng:'Taichung'
     },
     Tainan: {
-      zh_tw: "台南市",
+      zh_tw: "臺南市",
       eng:'Tainan'
     },
     Kaohsiung: {
@@ -93,7 +94,6 @@ const cityArr = reactive(
 let perPage = ref(1);
 //目前頁數
 let currentPage = ref(1);
-
 
 //監聽目前頁數若換頁重新取得api資料
 watch(currentPage, (nv, pv) => {//nv:後值，pv:前值
@@ -117,52 +117,5 @@ watch(route, (nv,pv) =>{
   activeCity.value = nv.name;
   currentPage.value = 0;
 })
+</script>
 
-  </script>
-  
-  <style>
-  .read-the-docs {
-    color: #888;
-  }
-  
-  .scenicSpot {
-    text-align:left;
-    border-style: solid;
-    border-width: 2px;
-    border-color: black;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 0 2.5em;
-  }
-  
-  .tag {
-    display: inline-block;
-      background: #008080;
-      color: white;
-      padding: 10px;
-      margin-right: 1em;
-      border-radius: 10px;
-  
-  }
-  
-  .pictures {
-    display: flex;
-    justify-content: center;
-    margin: 0 0 3em 0;
-  }
-  .pictures img {
-    border-radius: 10px;
-      width: 100%;
-  }
-  
-  p {
-    margin: 0 0 2em 0;
-  }
-  
-  h1 {
-    margin:1em 0;
-  }
-
-  
-  </style>
-  
